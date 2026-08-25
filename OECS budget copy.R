@@ -13,6 +13,11 @@ ggplot(data=hh_budget, aes(x=Year))+
   
 2. Is there a lagged relationship between household debt levels and unemployment — does rising debt predict unemployment increases 1–2 years later, or is causality more likely reversed?
   # actual code
+
+hh_lagged_long <- hh_lagged %>%
+  select(Country, Year, debt_lag1, Unemployment) %>%
+  pivot_longer(cols = c(debt_lag1, Unemployment),
+               names_to = "variable", values_to = "value")d
 #create a df that shows the previous years debt compared to this years debt and unemployment
 hh_lagged <- hh_budget |> 
   arrange(Country, Year) |> 
