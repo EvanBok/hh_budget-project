@@ -1,32 +1,17 @@
-ggplot(data=hh_budget, aes(x=Year, y=Debt, color=Country))+geom_line()
-#create a graph showing the relationship between each countries Debt
+1. Did the 2008 financial crisis structurally change the relationship between household debt and savings behavior across OECD countries?
+ggplot(data=hh_budget, aes(x=Year))+
+  geom_line(aes(y=Debt, linetype="Debt"),color="blue")+geom_line(aes(y=Savings, linetype = "Savings"))+
+  geom_vline(xintercept = 2008, color="red", linetype="dashed")+
+  facet_wrap(~Country)+
+  labs(title="2008 Financial Crisis Debt vs Savings Comparison", y=NULL)
 
-ggplot(data=hh_budget, aes(x=Year, color=Country))+geom_line(aes(y=Debt))+geom_line(aes(y=Wealth), linetype="dashed")
-#create a graph showing the realtionship between each countries debt and wealth over time
-
-ggplot(data = hh_budget, aes(x = Year, color = Country)) +
-  geom_line(aes(y = Debt, linetype = "Debt")) +
-  geom_line(aes(y = Wealth, linetype = "Wealth")) +
-  labs(linetype = "Metric", y=NULL)
-# create a graph showing the relationship between each counrties debt and wealth over time and include a legend for what each line type means.
-# you don't need to specify linetype as dashed because ggplot automatically asigns
-# y=NULL removes the "Debt" label from the y axis so the graph looks cleaner
-
-Did the 2008 financial crisis structurally change the relationship between household debt and savings behavior across OECD countries?
-  #test code from me
-    #hh_budget |> filter(Country=="Australia", between(Year,2000,2012)) |> ggplot(aes(x=Year))+geom_line(aes(y=Debt, linetype="Debt")) + geom_line(aes(y=Savings, linetype="Savings"))+ labs(linetype="Metric", y=NULL)
-  #better code
-    #ggplot(data=hh_budget, aes(x=Year))+geom_line(aes(y=Debt, linetype="Debt"),color="blue")+geom_line(aes(y=Savings, linetype = "Savings"))+geom_vline(xintercept = 2008, color="red", linetype="dashed")+facet_wrap(~Country)+labs(title="2008 Financial Crisis Debt vs Savings Comparison", y=NULL)
       #Use two geom_lines to create two different lines, one for debt and one for savings
       # geom_vline(xintercept=2008) puts a vertical line on 2008 so we can easily see before and after effects of the crisis
       # facet_wrap(~Country) creates four different graphs for each country to easily view
-------
+
+------------------
   
-Is there a lagged relationship between household debt levels and unemployment — does rising debt predict unemployment increases 1–2 years later, or is causality more likely reversed?
-  # hh_lagged_long <- hh_lagged %>%
-  select(Country, Year, debt_lag1, Unemployment) %>%
-  pivot_longer(cols = c(debt_lag1, Unemployment),
-               names_to = "variable", values_to = "value")
+2. Is there a lagged relationship between household debt levels and unemployment — does rising debt predict unemployment increases 1–2 years later, or is causality more likely reversed?
   # actual code
 #create a df that shows the previous years debt compared to this years debt and unemployment
 hh_lagged <- hh_budget |> 
@@ -85,15 +70,9 @@ summary(model_reverse)
   # this means that unemployment is a worse predictor of debt than debt was of unemployment.
   # neither relationship is significant, but this comparison suggests debt on unemployment is the better option if either is real at all
 
------
+----------------------
   
-Does household wealth help explain why some countries' spending stays stable when income changes, while other countries' spending closely tracks income ups and downs?
-#My code
-ggplot(data=hh_budget, aes(x=Year, color= Country)) +     
-  geom_line(aes(y=Expenditure, linetype = "Expenditure"), color = "red") +
-  geom_line(aes(y=Savings, linetype = "Savings"), color = "blue") +
-  facet_wrap(~Country) +
-  labs(title="Savings vs Expediture", y = NULL)
+3. Does household wealth help explain why some countries' spending stays stable when income changes, while other countries' spending closely tracks income ups and downs?
 
 #Correct code
 #STEP 1: create a df that is suitable for a graph
