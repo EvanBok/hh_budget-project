@@ -107,6 +107,11 @@ hh_budget |>
 #STEP 4: create a model
 model_smoothing <- lm(Expenditure ~ DI * Wealth, data = hh_budget)
 summary(model_smoothing)
+
+Note: Expenditure ~ DI * Wealth is the easier way of writing:
+  lm(Expenditure ~ DI, data = hh_budget)
+  lm(Expenditure ~ Wealth, data = hh_budget)
+its output shows DI, Wealth, AND DI:Wealth
   #This code tests whether DI and Wealth independently effect Expenditure and the research question - whether Wealth changes the strength of DI's effect on Expenditure
   #Expenditure is the dependent variable (thing being predicted/explained/effect) ~ DI and Wealth are the independent variables (predictor/cause)
   #What * does (equivalent to DI+Wealth+DI:Wealth): Does DI affect Expenditure, does Wealth affect Expenditure, AND does Wealth change how much DI affects Expenditure?. Wealth and DI mulitplied together for each individual row
